@@ -6,7 +6,8 @@ import lombok.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
-import static org.springframework.http.ResponseEntity.badRequest;
+import java.util.List;
+
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
@@ -19,6 +20,12 @@ public class ResourceController {
     @PostMapping
     public ResponseEntity<Integer> createResourceObject(@RequestBody ResourceObject object) {
         val result = service.save(object);
+        return ok(result);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<ResourceObject>> getResources() {
+        val result = service.getAll();
         return ok(result);
     }
 
