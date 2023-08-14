@@ -25,9 +25,17 @@ spring:
     username: sa
     password: h2pass
 
+  main:
+    allow-bean-definition-overriding: true
+
 server:
   port: 9000
 
 application:
   security:
-    base: true
+    base:
+      enabled: true
+    jwt:
+      enabled: true
+      secret: abcdefghijklmnOPQRSTUVWXYZ
+

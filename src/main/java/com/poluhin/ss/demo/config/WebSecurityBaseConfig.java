@@ -22,12 +22,12 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 @AllArgsConstructor
-@ConditionalOnExpression("${application.security.base:true}")
 public class WebSecurityBaseConfig {
 
     private final UserRepository userRepository;
 
     @Bean
+    @ConditionalOnExpression("${application.security.base.enabled:true}")
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer :: disable)
                 .headers(AbstractHttpConfigurer :: disable)
@@ -51,7 +51,7 @@ public class WebSecurityBaseConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        //initUserAdmin();
+        initUserAdmin();
         return username -> {
             User user = userRepository.findByUsername(username);
 
