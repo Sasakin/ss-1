@@ -6,6 +6,9 @@ import com.poluhin.ss.demo.repository.*;
 import lombok.*;
 import org.springframework.stereotype.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static org.springframework.data.mapping.Alias.ofNullable;
 
 @Service
@@ -25,6 +28,11 @@ public class ResourceObjectService {
         return repository.findById(id)
                 .map(r -> new ResourceObject(r.getId(), r.getValue(), r.getPath()))
                 .orElse(null);
+    }
+
+    public List<ResourceObject> getAll() {
+        return repository.findAll().stream().map(r -> new ResourceObject(r.getId(), r.getValue(), r.getPath()))
+                .collect(Collectors.toList());
     }
 
 }

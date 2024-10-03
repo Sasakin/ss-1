@@ -8,16 +8,34 @@ spring:
   jpa:
     properties:
       hibernate:
+        format_sql: true
         globally_quoted_identifiers: true
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: create-drop
+    show-sql: true
+    h2:
+      console:
+        enabled: true
+        path: /h2-console
 
   datasource:
-    url: jdbc:h2:mem:ss
+    url: jdbc:h2:mem:ss;INIT=RUNSCRIPT FROM 'classpath:data.sql';SCHEMA=PUBLIC
     driver-class-name: org.h2.Driver
-    username:
-    password:
+    username: sa
+    password: h2pass
+
+  main:
+    allow-bean-definition-overriding: true
 
 server:
   port: 9000
+
+application:
+  security:
+    base:
+      enabled: true
+    jwt:
+      enabled: true
+      secret: abcdefghijklmnOPQRSTUVWXYZ
+
